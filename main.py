@@ -43,7 +43,7 @@ def enter_move():
     global past_moves
     global grid
     global current_player
-    player_move = 999 # reset so we don't get an infinite loop
+    player_move = 999  # reset so we don't get an infinite loop
     # asks the user to enter a move
     while player_move not in range(1, 10):
         print(f'    *** {current_player} ***')
@@ -57,7 +57,7 @@ def enter_move():
             print('Please enter number between 1 and 9.')
             continue
         if str(player_move) in past_moves:
-            print('That square is occupied')
+            print('That square is occupied.')
             player_x_o()
             # flip X O value an extra time so that the player stays the same
             continue
@@ -127,9 +127,14 @@ def victory_for():
     if grid[2][0] == current_player and grid[2][1] == current_player and grid[2][2] == current_player:
         winner()
         return True
+    if len(past_moves) == 9:
+        # check to see if all the squares are occupied
+        print("""
+    ~~ IT IS A DRAW. ~~
+            """)
+        return True
     else:
         pass
-
 
 def draw_move():
     comp_move = (random.randrange(0, 9))+1
