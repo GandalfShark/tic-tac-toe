@@ -127,6 +127,7 @@ def victory_for():
     if grid[2][0] == current_player and grid[2][1] == current_player and grid[2][2] == current_player:
         winner()
         return True
+    # TODO refactor above as two nested for loops
     if len(past_moves) == 9:
         # check to see if all the squares are occupied
         print("""
