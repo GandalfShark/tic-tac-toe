@@ -95,7 +95,6 @@ def make_list_of_free_fields():
 def victory_for():
     # The function analyzes the board's status in order to check if
     # the player using 'O's or 'X's has won the game
-    # TODO there must be a better way to do this
 
     def winner():
         print(f"""
@@ -127,7 +126,7 @@ def victory_for():
     if grid[2][0] == current_player and grid[2][1] == current_player and grid[2][2] == current_player:
         winner()
         return True
-    # TODO refactor above as two nested for loops
+    # TODO refactor above as two nested for loops - better way to do this
     if len(past_moves) == 9:
         # check to see if all the squares are occupied
         print("""
