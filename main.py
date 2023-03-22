@@ -22,8 +22,6 @@ def player_x_o():
 
 
 def display_board():
-    # The function accepts one parameter containing the board's current status
-    # and prints it out to the console.
     print(f"""
        *** TIC TAC TOE ***
     -------------------------
@@ -82,7 +80,7 @@ def enter_move():
                     grid[2][1] = current_player
                 case 9:
                     grid[2][2] = current_player
-
+                # TODO this is clunky, there must be a better way to code this
             past_moves += str(player_move)
 
 
@@ -127,6 +125,7 @@ def victory_for():
         winner()
         return True
     # TODO refactor above as two nested for loops - better way to do this
+    # TODO the win lines are multiples of three where [a]+[b] = n and (n1 + n2 + n3) mod 3 = 0
     if len(past_moves) == 9:
         # check to see if all the squares are occupied
         print("""
