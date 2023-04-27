@@ -8,6 +8,15 @@ past_moves = []
 # you can not place an X or O in square already used, duh.
 current_player = 'X'
 
+grid = [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9']]
+#        row0              row 1              row 2
+playing = True
+
+
+def clear_the_grid():
+    global grid
+    grid = [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9']]
+
 
 def player_x_o():
     global current_player
@@ -35,7 +44,6 @@ def display_board():
 
 
 def enter_move():
-    # TODO change to validate move function so it can be passed the computers move
     # global vars so that changes here are can be stored outside and recalled again
     global player_move
     global past_moves
@@ -46,6 +54,7 @@ def enter_move():
     while player_move not in range(1, 10):
         print(f'    *** {current_player} ***')
         print(f'PAST MOVES = {past_moves}')
+        make_list_of_free_fields()
         try:
             player_move = int(input('Enter the grid number:\n> '))
         except ValueError:
@@ -85,12 +94,16 @@ def enter_move():
 
 
 def make_list_of_free_fields():
-    # The function browses the board and builds a list of all the free squares;
-    # the list consists of tuples, while each tuple is a pair of row and column numbers.
-    pass  # WHY? I know there is a reason for this; I don't get it
+    possible_moves = []
+    for i in range(3):
+        for j in range(3):
+            if grid[i][j] not in ['X','Y']:
+                possible_moves += grid[i][j]
+    print(f'OPEN SQUARES = {possible_moves}')
+    return possible_moves
 
 
-def victory_for():
+def check_for_winning_player():
     # The function analyzes the board's status in order to check if
     # the player using 'O's or 'X's has won the game
 
@@ -135,21 +148,36 @@ def victory_for():
     else:
         pass
 
-def draw_move():
-    comp_move = (random.randrange(0, 9))+1
+
+
+def create_computer_move():
+    make_list_of_free_fields()
+    comp_move = (random.choice(make_list_of_free_fields()))
+    print(f'computer has chosen {comp_move}.')
     return comp_move
     # give a random number to be used as the computers move.
 
 
-grid = [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9']]
-#        row0              row 1              row 2
+def play_the_game():
+    while True:
+        display_board()
+        enter_move()
+        if check_for_winning_player():
+            break
+        player_x_o()
 
-while True:
-    display_board()
-    enter_move()
-    if victory_for():
-        break
-    player_x_o()
 
-print('THANKS FOR PLAYING.')
-# TODO refactor for playing against computer
+# main loop #
+while playing:
+    play_the_game()
+    again = 'XXX'
+    while again not in ['y', 'n']:
+        again = input('Play again? Y/N').lower().strip()
+        if again == 'y':
+            clear_the_grid()
+            break
+        if again == 'n':
+            print('Goodbye.')
+            quit()
+
+
