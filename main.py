@@ -140,7 +140,7 @@ def check_for_winning_player():
         return True
     # refactor above as two nested for loops <-  suggested by instructor as better way to do this
     # TODO the win lines are multiples of three where [a]+[b] = n and (n1 + n2 + n3) mod 3 = 0
-    # get all the index values of current player and see if any 3 added up are disable by 3
+    # get all the index values of current player and see if any 3 added up are dividable by 3
     # that might be a cleaner way to do this?
 
     if len(past_moves) == 9:
