@@ -90,6 +90,7 @@ def enter_move():
                 case 9:
                     grid[2][2] = current_player
                 # TODO this is clunky, there must be a better way to code this
+                # Dictionary {1 : 'grid[0][0]', etc, etc} possible?
             past_moves += str(player_move)
 
 
@@ -97,7 +98,7 @@ def make_list_of_free_fields():
     possible_moves = []
     for i in range(3):
         for j in range(3):
-            if grid[i][j] not in ['X','Y']:
+            if grid[i][j] not in ['X','O']:
                 possible_moves += grid[i][j]
     print(f'OPEN SQUARES = {possible_moves}')
     return possible_moves
@@ -137,8 +138,11 @@ def check_for_winning_player():
     if grid[2][0] == current_player and grid[2][1] == current_player and grid[2][2] == current_player:
         winner()
         return True
-    # TODO refactor above as two nested for loops - better way to do this
+    # refactor above as two nested for loops <-  suggested by instructor as better way to do this
     # TODO the win lines are multiples of three where [a]+[b] = n and (n1 + n2 + n3) mod 3 = 0
+    # get all the index values of current player and see if any 3 added up are disable by 3
+    # that might be a cleaner way to do this?
+
     if len(past_moves) == 9:
         # check to see if all the squares are occupied
         print("""
@@ -156,6 +160,7 @@ def create_computer_move():
     print(f'computer has chosen {comp_move}.')
     return comp_move
     # give a random number to be used as the computers move.
+    # TODO change code so computer looks for 2 in a row and blocks
 
 
 def play_the_game():
