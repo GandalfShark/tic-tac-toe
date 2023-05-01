@@ -1,5 +1,4 @@
-# tic tac toe
-# needs to run in *nix based terminal to display properly
+# tic tac toe -- needs to run in *nix based terminal to display color properly
 import random
 player_move = 999
 # arbitrary value so that the loops in the get move function will trigger
@@ -10,6 +9,7 @@ current_player = 'X'
 # set player one as X
 grid = [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9']]
 #        row0              row 1              row 2
+# building the grid for the game board
 playing = True
 # set playing as true so main loop will loop
 
@@ -20,7 +20,7 @@ def clear_the_grid():
     past_moves = []
 
 
-def player_x_o():
+def player_flip_x_o():
     global current_player
     match current_player:
         case 'X':
@@ -47,18 +47,16 @@ def display_board():
 
 def enter_move():
     # global vars so that changes here are can be stored outside and recalled again
-    global player_move
-    global past_moves
-    global grid
-    global current_player
-    player_move = 999  # reset so we don't get an infinite loop
-    # asks the user to enter a move
+    global player_move, past_moves, grid, current_player
+    player_move = 999
+    # reset var so we don't get an infinite loop
     while player_move not in range(1, 10):
         print(f'    *** {current_player} ***')
         print(f'PAST MOVES = {past_moves}')
         make_list_of_free_fields()
         try:
             player_move = int(input('Enter the grid number:\n> '))
+            # asks the user to enter a move
         except ValueError:
             print('Input is not valid.')
             continue
@@ -67,7 +65,7 @@ def enter_move():
             continue
         if str(player_move) in past_moves:
             print('That square is occupied.')
-            player_x_o()
+            player_flip_x_o()
             # flip X O value an extra time so that the player stays the same
             continue
         else:
@@ -100,7 +98,7 @@ def make_list_of_free_fields():
     possible_moves = []
     for i in range(3):
         for j in range(3):
-            if grid[i][j] not in ['X','O']:
+            if grid[i][j] not in ['X', 'O']:
                 possible_moves += grid[i][j]
     print(f'OPEN SQUARES = {possible_moves}')
     return possible_moves
@@ -171,7 +169,7 @@ def play_the_game():
         enter_move()
         if check_for_winning_player():
             break
-        player_x_o()
+        player_flip_x_o()
 
 
 # main loop #
