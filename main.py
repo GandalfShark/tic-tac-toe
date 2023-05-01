@@ -1,21 +1,23 @@
 # tic tac toe
-
+# needs to run in *nix based terminal to display properly
 import random
 player_move = 999
-# random value so that the loops in the function will trigger
+# arbitrary value so that the loops in the get move function will trigger
 past_moves = []
 # hold past moves, they can be checked against move attempts
 # you can not place an X or O in square already used, duh.
 current_player = 'X'
-
+# set player one as X
 grid = [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9']]
 #        row0              row 1              row 2
 playing = True
+# set playing as true so main loop will loop
 
 
 def clear_the_grid():
-    global grid
+    global grid, past_moves
     grid = [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9']]
+    past_moves = []
 
 
 def player_x_o():
@@ -32,14 +34,14 @@ def player_x_o():
 
 def display_board():
     print(f"""
-       *** TIC TAC TOE ***
+       \033[0;33m*** TIC TAC TOE ***\033[0;32m
     -------------------------
     |   {grid[0][0]}   |   {grid[0][1]}   |   {grid[0][2]}   |
     -------------------------
     |   {grid[1][0]}   |   {grid[1][1]}   |   {grid[1][2]}   |
     -------------------------
     |   {grid[2][0]}   |   {grid[2][1]}   |   {grid[2][2]}   |
-    -------------------------
+    -------------------------\033[00m
     """)
 
 
@@ -184,5 +186,3 @@ while playing:
         if again == 'n':
             print('Goodbye.')
             quit()
-
-
